@@ -35,6 +35,8 @@ def open_file(
             file = BeautifulSoup(file.read(), "xml")
     else:
         raise ValueError("Invalid file type")
+    if (file.find("Invoice") is not None) or (file.find("CreditNote") is not None):
+        return str(file)
     return file.find("cac:Attachment").find("cbc:Description").text
 
 
