@@ -1,30 +1,12 @@
 # Main file for standalone execution
-import zipfile
-from bs4 import BeautifulSoup
-
 import models
 import service
 
 filename = input("Enter the filename: ")
 
-file: BeautifulSoup
+file = service.open_file(filename)
 
-if filename.endswith(".zip"):
-    with zipfile.ZipFile(filename, "r") as zip_ref:
-        # read the only one xml file in the zip with functional proggramming
-        file = BeautifulSoup(
-            zip_ref.read(
-                list(filter(lambda x: x.endswith(".xml"), zip_ref.namelist()))[0]
-            ),
-            "xml",
-        )
-elif filename.endswith(".xml"):
-    file = BeautifulSoup(open(filename, "r", encoding="utf8"), "xml")
-else:
-    print("Invalid file type")
-    exit()
-
-invoice: models.Invoice = service.parse_invoice(file.find("cbc:Description").text)
+invoice: models.Invoice = service.parse_invoice(file)
 
 print(
     "Comercio: "

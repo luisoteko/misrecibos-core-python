@@ -170,4 +170,5 @@ class Invoice:
     tax_total: TaxTotal
     legal_monetary_total: LegalMonetaryTotal
     invoice_lines: List[InvoiceLine]
+    allowance_charge: List[AllowanceCharge]
     ubl_extensions: List[UBLExtension] = field(default_factory=list)

@@ -11,10 +11,11 @@ def hello_world():
     return "<p>Hello, World!</p>"
 
 
-@app.route("/invoice")
+@app.route("/invoice", methods=["POST"])
 def invoice():
     # Get the sent file
-    file = request.files['file']
+    file = request.files["file"]
     # Parse the file
-    invoice: models.Invoice = service.parse_invoice(file)
+    # app.logger.info(f"Received file: {file.filename}")
+    invoice: models.Invoice = service.parse_invoice(service.open_file_storage(file))
     return dataclasses.asdict(invoice)
