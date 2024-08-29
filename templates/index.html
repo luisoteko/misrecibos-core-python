@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>MisRecibos</title>
+</head>
+
+<body>
+  <h1>Sube tu factura</h1>
+  <form method="POST" enctype="multipart/form-data" action="{{ url_for('invoice') }}">
+    <input type="file" name="file"/>
+    <input type="submit" value="Subir">
+  </form>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+<section>
+  <h2>Productos</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Cantidad</th>
+        <th>Precio Unitario</th>
+        <th>Descuento</th>
+        <th>Impuestos</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for line in invoice.invoice_lines %}
+      <tr>
+        <td>{{ line.item_description }}</td>
+        <td>{{ line.invoiced_quantity|float|round }}</td>
+        <td>{{ "${:,.2f}".format(line.price_amount|float) }}</td>
+        <td>{{ "${:,.2f}".format(line.allowance_charge.amount|float) }}</td>
+        <td>{{ "${:,.2f}".format(line.tax_total|float) }}</td>
+        <td>{{ "${:,.2f}".format(line.line_extension_amount|float) }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>

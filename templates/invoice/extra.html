@@ -1,0 +1,25 @@
+<section>
+  <h2>Información adicional</h2>
+  {% if invoice.allowance_charge|length > 0 %}
+    <h3>Prestaciones</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Base</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for allowance in invoice.allowance_charge %}
+        <tr>
+          <td>{{ allowance.allowance_charge_reason }}</td>
+          <td>{{ "${:,.2f}".format(allowance.base_amount|float) }}</td>
+          <td>{{ "${:,.2f}".format(allowance.amount|float) }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+  
+</section>

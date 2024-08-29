@@ -1,0 +1,12 @@
+<section>
+  <h2>Datos Comprador</h2>
+  <p>Nombre: {{ invoice.accounting_customer_party.party.party_name }}</p>
+  <p>Identificacion: {{ invoice.accounting_customer_party.party.party_tax_scheme.company_id }}</p>
+  <p>Direccion: {{ invoice.accounting_customer_party.party.physical_location.line}}</p>
+  <p>Pais: {{ invoice.accounting_customer_party.party.physical_location.country_name }}</p>
+  <p>Departamento: {{ invoice.accounting_customer_party.party.physical_location.country_subentity }}</p>
+  <p>Ciudad: {{ invoice.accounting_customer_party.party.physical_location.city_name }}</p>
+  <p>Codigo postal: {{invoice.accounting_customer_party.party.physical_location.postal_zone}}</p>
+  <p>Telefono: {{ invoice.accounting_customer_party.party.contact.telephone }}</p>
+  <p>Correo: {{ invoice.accounting_customer_party.party.contact.email }}</p>
+</section>

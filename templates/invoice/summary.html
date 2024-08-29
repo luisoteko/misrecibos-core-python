@@ -1,0 +1,7 @@
+<section>
+  <h2>Resumen</h2>
+  <p>Subtotal: {{ "${:,.2f}".format(invoice.legal_monetary_total.line_extension_amount|float) }}</p>
+  <p>Descuento: {{ "${:,.2f}".format(invoice.legal_monetary_total.allowance_total_amount|float) }}</p>
+  <p>Impuestos: {{ "${:,.2f}".format(invoice.legal_monetary_total.tax_exclusive_amount|float) }}</p>
+  <p>Total: {{ "${:,.2f}".format(invoice.legal_monetary_total.payable_amount|float) }}</p>
+</section>
