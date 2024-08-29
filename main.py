@@ -1,3 +1,4 @@
+# Main file for standalone execution
 import zipfile
 from bs4 import BeautifulSoup
 
