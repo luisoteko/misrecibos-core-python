@@ -31,10 +31,9 @@ print(
 )
 print(
     "Cliente: "
-    + invoice.accounting_customer_party.party.party_legal_entity.registration_name
-    if invoice.accounting_customer_party.party.party_legal_entity
-    else invoice.accounting_customer_party.party.party_tax_scheme.registration_name
+    + invoice.accounting_customer_party.party.party_name
 )
+print("Direccion: " + invoice.accounting_customer_party.party.physical_location.line)
 print("Fecha: " + invoice.issue_date)
 print("Moneda: " + invoice.document_currency_code)
 print("Total: " + str(invoice.legal_monetary_total.tax_inclusive_amount))
