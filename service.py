@@ -29,7 +29,10 @@ def open_file(
                 "xml",
             )
     elif file_path.endswith(".xml"):
-        file = BeautifulSoup(open(file, "r", encoding="utf8"), "xml")
+        if type == "S":
+            file = BeautifulSoup(open(file, "r", encoding="utf8"), "xml")
+        else:
+            file = BeautifulSoup(file.read(), "xml")
     else:
         raise ValueError("Invalid file type")
     return file.find("cac:Attachment").find("cbc:Description").text
