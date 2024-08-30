@@ -1521,7 +1521,7 @@ class Invoice:
         _customization_id = str(obj.get("cbc:CustomizationID"))
         _profile_id = str(obj.get("cbc:ProfileID"))
         _profile_execution_id = str(obj.get("cbc:ProfileExecutionID"))
-        _id = str(obj.get("cbc:ID"))
+        _id = ID.from_dict(obj.get("cbc:ID"))
         _UUID = UUID.from_dict(obj.get("cbc:UUID"))
         _issue_date = str(obj.get("cbc:IssueDate"))
         _issue_time = str(obj.get("cbc:IssueTime"))

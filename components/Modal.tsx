@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 export default function Modal({
   invoice,
@@ -6,14 +6,12 @@ export default function Modal({
 }: Readonly<{ invoice: Invoice; setShow: (show: boolean) => void }>) {
   const [tab, setTab] = useState<number>(0);
 
-  console.log(invoice);
-
   return (
     // tab navigation. Include a tab for the invoice general data, customer data, seller data, products, totals, and other info
     // Be aware of dark mode and make titles different from the content
     <div className="fixed inset-0 z-50 bg-gray-900 bg-opacity-50 flex items-center justify-center">
       <div className="bg-white dark:bg-gray-800 w-3/4 h-3/4 rounded-lg">
-        <div className="flex justify-between items-center px-4 py-2 border-b border-gray-300 dark:border-gray-600">
+        <div className="flex justify-between items-center px-4 py-2 border-b border-gray-300 dark:border-gray-600 h-12">
           <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
             Factura
           </h2>
@@ -38,7 +36,7 @@ export default function Modal({
             </svg>
           </button>
         </div>
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-[calc(100%-3rem)]">
           <div className="flex items-center justify-around px-4 py-2 border-b border-gray-300 dark:border-gray-600">
             <button
               className={`text-sm font-semibold ${
@@ -107,13 +105,13 @@ export default function Modal({
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
                   General
                 </h3>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
                   <div>
                     <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-100">
                       Numero de factura
                     </h4>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
-                      {invoice.id}
+                      {invoice.id.text}
                     </p>
                   </div>
                   <div>
@@ -156,7 +154,7 @@ export default function Modal({
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
                   Cliente
                 </h3>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
                   <div>
                     <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-100">
                       Nombre
@@ -170,7 +168,10 @@ export default function Modal({
                       Contacto
                     </h4>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
-                      {invoice.accounting_customer_party.party.contact.electronic_mail}
+                      {
+                        invoice.accounting_customer_party.party.contact
+                          .electronic_mail
+                      }
                     </p>
                   </div>
                   <div>
@@ -247,7 +248,7 @@ export default function Modal({
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
                   Vendedor
                 </h3>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
                   <div>
                     <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-100">
                       Nombre
@@ -261,7 +262,10 @@ export default function Modal({
                       Contacto
                     </h4>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
-                      {invoice.accounting_supplier_party.party.contact.electronic_mail}
+                      {
+                        invoice.accounting_supplier_party.party.contact
+                          .electronic_mail
+                      }
                     </p>
                   </div>
                   <div>
@@ -338,12 +342,23 @@ export default function Modal({
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
                   Productos
                 </h3>
-                <div className="grid grid-cols-3 gap-4">
-                  {invoice.invoice_line.map((line:InvoiceLine) => (
+                <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">
+                  {invoice.invoice_line.map((line: InvoiceLine) => (
                     <div
                       key={line.id}
                       className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg"
                     >
+                      <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-100">
+                        Código
+                      </h4>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                        {line.item.sellers_item_identification?.id?.text}
+                        {line.item.sellers_item_identification &&
+                        line.item.standard_item_identification
+                          ? "/"
+                          : ""}
+                        {line.item.standard_item_identification?.id?.text}
+                      </p>
                       <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-100">
                         Producto
                       </h4>
@@ -390,7 +405,7 @@ export default function Modal({
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
                   Totales
                 </h3>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
                   <div>
                     <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-100">
                       Total
@@ -415,7 +430,7 @@ export default function Modal({
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
                   Otros
                 </h3>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
                   <div>
                     <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-100">
                       CUFE
@@ -462,7 +477,17 @@ export default function Modal({
                     <p className="text-sm text-gray-500 dark:text-gray-400">
                       {invoice.invoice_type_code}
                     </p>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-100">
+                      Notas
+                    </h4>
+                    <div className="text-sm text-gray-500 dark:text-gray-400 grid">
+                      {invoice.note.map((note: Note, index: number) => (
+                        <p key={index}>{note.text}</p>
+                      ))}
                     </div>
+                  </div>
                 </div>
               </div>
             )}

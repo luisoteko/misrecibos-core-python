@@ -507,7 +507,7 @@ interface Invoice {
     customization_id: string;
     profile_id: string;
     profile_execution_id: string;
-    id: string;
+    id: ID;
     UUID: UUID;
     issue_date: string;
     issue_time: string;
