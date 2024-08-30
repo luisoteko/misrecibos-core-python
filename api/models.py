@@ -1,3 +1,4 @@
+import logging
 from typing import List, Optional
 from dataclasses import dataclass
 
@@ -179,7 +180,7 @@ class Address:
     postal_zone: str
     country_subentity: str
     country_subentity_code: str
-    address_line: AddressLine
+    address_line: List[AddressLine]
     country: Country
 
     @nullable
@@ -190,40 +191,13 @@ class Address:
         _postal_zone = str(obj.get("cbc:PostalZone"))
         _country_subentity = str(obj.get("cbc:CountrySubentity"))
         _country_subentity_code = str(obj.get("cbc:CountrySubentityCode"))
-        _address_line = AddressLine.from_dict(obj.get("cac:AddressLine"))
+        _address_line = (
+            [AddressLine.from_dict(y) for y in obj.get("cac:AddressLine")]
+            if type(obj.get("cac:AddressLine")) is list
+            else [AddressLine.from_dict(obj.get("cac:AddressLine"))]
+        )
         _country = Country.from_dict(obj.get("cac:Country"))
         return Address(
-            _id,
-            _city_name,
-            _postal_zone,
-            _country_subentity,
-            _country_subentity_code,
-            _address_line,
-            _country,
-        )
-
-
-@dataclass
-class RegistrationAddress:
-    id: str
-    city_name: str
-    postal_zone: str
-    country_subentity: str
-    country_subentity_code: str
-    address_line: AddressLine
-    country: Country
-
-    @nullable
-    @staticmethod
-    def from_dict(obj: dict | None) -> "RegistrationAddress":
-        _id = str(obj.get("cbc:ID"))
-        _city_name = str(obj.get("cbc:CityName"))
-        _postal_zone = str(obj.get("cbc:PostalZone"))
-        _country_subentity = str(obj.get("cbc:CountrySubentity"))
-        _country_subentity_code = str(obj.get("cbc:CountrySubentityCode"))
-        _address_line = AddressLine.from_dict(obj.get("cac:AddressLine"))
-        _country = Country.from_dict(obj.get("cac:Country"))
-        return RegistrationAddress(
             _id,
             _city_name,
             _postal_zone,
@@ -239,7 +213,7 @@ class PartyTaxScheme:
     registration_name: str
     company_id: CompanyID
     tax_level_code: TaxLevelCode
-    registration_address: RegistrationAddress
+    registration_address: Address
     tax_scheme: TaxScheme
 
     @nullable
@@ -248,7 +222,7 @@ class PartyTaxScheme:
         _registration_name = str(obj.get("cbc:RegistrationName"))
         _company_id = CompanyID.from_dict(obj.get("cbc:CompanyID"))
         _tax_level_code = TaxLevelCode.from_dict(obj.get("cbc:TaxLevelCode"))
-        _registration_address = RegistrationAddress.from_dict(
+        _registration_address = Address.from_dict(
             obj.get("cac:RegistrationAddress")
         )
         _tax_scheme = TaxScheme.from_dict(obj.get("cac:TaxScheme"))
@@ -707,9 +681,9 @@ class ChargeTotalAmount:
 
 @dataclass
 class IdentificationCode:
-    list_agency_id:   Optional[str]
+    list_agency_id: Optional[str]
     list_agency_name: Optional[str]
-    list_scheme_uri:  Optional[str]
+    list_scheme_uri: Optional[str]
     text: str
 
     @nullable
@@ -788,7 +762,7 @@ class TaxInclusiveAmount:
 
 @dataclass
 class UUID:
-    scheme_id:   Optional[str]
+    scheme_id: Optional[str]
     scheme_name: Optional[str]
     text: str
 
@@ -1232,10 +1206,10 @@ class StsAuthorizationPeriod:
 
 @dataclass
 class StsAuthorizationProviderID:
-    scheme_agency_id:   Optional[str]
+    scheme_agency_id: Optional[str]
     scheme_agency_name: Optional[str]
-    scheme_id:          Optional[str]
-    scheme_name:        Optional[str]
+    scheme_id: Optional[str]
+    scheme_name: Optional[str]
     text: str
 
     @nullable
@@ -1319,10 +1293,10 @@ class StsInvoiceSource:
 
 @dataclass
 class StsProviderID:
-    scheme_agency_id:   Optional[str]
+    scheme_agency_id: Optional[str]
     scheme_agency_name: Optional[str]
-    scheme_id:          Optional[str]
-    scheme_name:        Optional[str]
+    scheme_id: Optional[str]
+    scheme_name: Optional[str]
     text: str
 
     @nullable
@@ -1342,7 +1316,7 @@ class StsProviderID:
 
 @dataclass
 class StsSoftwareID:
-    scheme_agency_id:   Optional[str]
+    scheme_agency_id: Optional[str]
     scheme_agency_name: Optional[str]
     text: str
 
@@ -1372,7 +1346,7 @@ class StsSoftwareProvider:
 
 @dataclass
 class StsSoftwareSecurityCode:
-    scheme_agency_id:   Optional[str]
+    scheme_agency_id: Optional[str]
     scheme_agency_name: Optional[str]
     text: str
 
@@ -1466,13 +1440,15 @@ class ExtUBLExtensions:
 class Delivery:
     actual_delivery_date: str
     actual_delivery_time: str
+    delivery_address: Address
 
     @nullable
     @staticmethod
     def from_dict(obj: dict | None) -> "Delivery":
         _actual_delivery_date = str(obj.get("cbc:ActualDeliveryDate"))
         _actual_delivery_time = str(obj.get("cbc:ActualDeliveryTime"))
-        return Delivery(_actual_delivery_date, _actual_delivery_time)
+        _delivery_address = Address.from_dict(obj.get("cac:DeliveryAddress"))
+        return Delivery(_actual_delivery_date, _actual_delivery_time, _delivery_address)
 
 
 @dataclass

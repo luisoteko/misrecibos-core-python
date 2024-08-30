@@ -1,4 +1,4 @@
-export async function postFile (file: File): Promise<Invoice> {
+export async function postFile (file: File): Promise<Response> {
   const formData = new FormData();
   formData.append("file", file);
   
@@ -9,5 +9,5 @@ export async function postFile (file: File): Promise<Invoice> {
     },
     body: formData,
   });
-  return await res.json();
+  return res;
 }

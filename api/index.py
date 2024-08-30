@@ -1,4 +1,5 @@
 import dataclasses
+import logging
 from flask import Flask, render_template, request
 import api.models as models
 import api.service as service
@@ -17,8 +18,10 @@ def invoice():
     # Get the sent file
     file = request.files["file"]
     # Parse the file
-
-    ddict = xmltodict.parse(service.open_file_storage(file))
+    try:
+        ddict = xmltodict.parse(service.open_file_storage(file))
+    except ValueError as e:
+        return {'errorMessage': str(e)}, 406
 
     invoice: models.Invoice = models.Root.from_dict(ddict).invoice
 

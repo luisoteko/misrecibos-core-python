@@ -64,7 +64,7 @@ interface Address {
     postal_zone: string;
     country_subentity: string;
     country_subentity_code: string;
-    address_line: AddressLine;
+    address_line: Array<AddressLine>;
     country: Country;
 }
 
