@@ -8,6 +8,7 @@ import { postFile } from "@/services/net";
 import Modal from "@/components/Modal";
 import Loader from "@/components/Loader";
 import { toast } from "react-toastify";
+import { track } from "@vercel/analytics";
 
 // Style it using tailwindcss
 export default function Home() {
@@ -29,6 +30,7 @@ export default function Home() {
   const submit = async () => {
     console.log(file);
     if (!file) return;
+    track("file_uploaded", { file: file.name });
     setLoading(true);
     try{
       const response = await postFile(file);
