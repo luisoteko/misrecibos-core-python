@@ -1,7 +1,7 @@
 # Main file for standalone execution
-import models
+import api.models as models
 import xmltodict
-import service as service
+import api.service as service
 
 filename = input("Enter the filename: ")
 
