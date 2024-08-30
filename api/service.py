@@ -40,7 +40,9 @@ def open_file(
     return file.find("cac:Attachment").find("cbc:Description").text
 
 
-def open_file_storage(file: werkzeug.datastructures.FileStorage) -> str:  # comming from flask
+def open_file_storage(
+    file: werkzeug.datastructures.FileStorage,
+) -> str:  # comming from flask
     return open_file(file.filename, file, "F")
 
 
@@ -194,7 +196,9 @@ def parse_invoice(xml_content: str) -> models.Invoice:
         return models.Party(
             party_name=get_text(safe_find(party_element, "cac:PartyName"), "cbc:Name"),
             physical_location=parse_address(
-                safe_find(party_element, "cac:PhysicalLocation").find("cac:Address")
+                safe_find(
+                    safe_find(party_element, "cac:PhysicalLocation"), "cac:Address"
+                )
             ),
             party_tax_scheme=parse_party_tax_scheme(
                 safe_find(party_element, "cac:PartyTaxScheme")
@@ -279,23 +283,22 @@ def parse_invoice(xml_content: str) -> models.Invoice:
             ),
             tax_percentage=get_text(
                 (
-                    tax_total_element.find("cac:TaxSubtotal")
-                    .find("cac:TaxCategory")
-                    if safe_find(tax_total_element, "cac:TaxSubtotal")
-                    else None
+                    safe_find(
+                        safe_find(tax_total_element, "cac:TaxSubtotal"),
+                        "cac.TaxCategory",
+                    )
                 ),
                 "cbc:Percent",
             ),
             tax_name=get_text(
                 (
-                    tax_total_element.find("cac:TaxSubtotal")
-                    .find("cac:TaxCategory")
-                    .find("cac:TaxScheme")
-                    if safe_find(tax_total_element, "cac:TaxSubtotal")
-                    and tax_total_element.find("cac:TaxSubtotal").find(
-                        "cac:TaxCategory"
+                    safe_find(
+                        safe_find(
+                            safe_find(tax_total_element, "cac:TaxSubtotal"),
+                            "cac:TaxCategory",
+                        ),
+                        "cac:TaxScheme",
                     )
-                    else None
                 ),
                 "cbc:Name",
             ),
@@ -355,6 +358,8 @@ def parse_invoice(xml_content: str) -> models.Invoice:
             for line in soup.find_all("cac:InvoiceLine")
             + soup.find_all("cac:CreditNoteLine")
         ],
-        allowance_charge=[parse_allowance_charge(ac) for ac in soup.find_all("cac:AllowanceCharge")],
+        allowance_charge=[
+            parse_allowance_charge(ac) for ac in soup.find_all("cac:AllowanceCharge")
+        ],
         ubl_extensions=ubl_extensions,
     )

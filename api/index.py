@@ -1,17 +1,17 @@
 import dataclasses
 from flask import Flask, render_template, request
 import models
-import service
+import service as service
 
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/api/")
 def hello_world():
     return render_template("index.html")
 
 
-@app.route("/invoice", methods=["POST"])
+@app.route("/api/invoice", methods=["POST"])
 def invoice():
     # Get the sent file
     file = request.files["file"]

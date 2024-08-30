@@ -1,6 +1,6 @@
 # Main file for standalone execution
 import models
-import service
+import service as service
 
 filename = input("Enter the filename: ")
 
