@@ -2,7 +2,7 @@
   "name": "misrecibos-core-python",
   "packageManager": "yarn@4.4.1",
   "scripts": {
-    "flask-dev": "set FLASK_DEBUG=1 && pip3 install -r requirements.txt && python -m flask --app api/index run -p 5328",
+    "flask-dev": "pip3 install -r requirements.txt && python -m flask --app api/index run -p 5328 --debug",
     "next-dev": "next dev",
     "dev": "concurrently \"yarn run next-dev\" \"yarn run flask-dev\"",
     "build": "next build",
@@ -14,8 +14,6 @@
     "@vercel/speed-insights": "^1.0.12",
     "autoprefixer": "^10.4.20",
     "concurrently": "^8.2.2",
-    "eslint": "^9.9.1",
-    "eslint-config-next": "^14.2.7",
     "next": "^14.2.7",
     "postcss": "^8.4.41",
     "react": "^18.3.1",
@@ -24,9 +22,17 @@
     "typescript": "^5.5.4"
   },
   "devDependencies": {
+    "@eslint/js": "^9.9.1",
+    "@next/eslint-plugin-next": "^14.2.7",
     "@types/eslint": "^9",
-    "@types/node": "^22.5.1",
-    "@types/react": "^18",
-    "@types/react-dom": "^18"
+    "@types/node": "20.1.4",
+    "@types/react": "18.2.6",
+    "@types/react-dom": "18.2.4",
+    "eslint": "^8.41.0",
+    "eslint-config-next": "^14.2.7",
+    "eslint-plugin-react": "^7.35.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "globals": "^15.9.0",
+    "typescript-eslint": "^8.3.0"
   }
 }
