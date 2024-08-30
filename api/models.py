@@ -1495,7 +1495,7 @@ class Invoice:
     customization_id: str
     profile_id: str
     profile_execution_id: str
-    id: str
+    id: ID
     UUID: UUID
     issue_date: str
     issue_time: str
