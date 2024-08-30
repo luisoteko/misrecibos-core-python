@@ -1,0 +1,506 @@
+{
+  "IDScheme": [
+    {
+      "code": "11",
+      "name": "Registro civil"
+    },
+    {
+      "code": "12",
+      "name": "Tarjeta de identidad"
+    },
+    {
+      "code": "13",
+      "name": "Cédula de ciudadanía"
+    },
+    {
+      "code": "21",
+      "name": "Tarjeta de extranjería"
+    },
+    {
+      "code": "22",
+      "name": "Cédula de extranjería"
+    },
+    {
+      "code": "31",
+      "name": "NIT"
+    },
+    {
+      "code": "41",
+      "name": "Pasaporte"
+    },
+    {
+      "code": "42",
+      "name": "Documento de identificación extranjero"
+    },
+    {
+      "code": "47",
+      "name": "PEP"
+    },
+    {
+      "code": "50",
+      "name": "NIT de otro país"
+    },
+    {
+      "code": "91",
+      "name": "NUIP"
+    }
+  ],
+  "TaxScheme": [
+    {
+      "code": "01",
+      "name": "IVA",
+      "description": "Impuesto sobre la Ventas"
+    },
+    {
+      "code": "02",
+      "name": "IC",
+      "description": "Impuesto al Consumo Departamental Nominal"
+    },
+    {
+      "code": "03",
+      "name": "ICA",
+      "description": "Impuesto de Industria, Comercio y Aviso"
+    },
+    {
+      "code": "04",
+      "name": "INC",
+      "description": "Impuesto Nacional al Consumo"
+    },
+    {
+      "code": "05",
+      "name": "ReteIVA",
+      "description": "Retención sobre el IVA"
+    },
+    {
+      "code": "06",
+      "name": "ReteRenta",
+      "description": "Retención sobre Renta"
+    },
+    {
+      "code": "07",
+      "name": "ReteICA",
+      "description": "Retención sobre el ICA"
+    },
+    {
+      "code": "08",
+      "name": "IC Porcentual",
+      "description": "Impuesto al Consumo Departamental Porcentual"
+    },
+    {
+      "code": "20",
+      "name": "FtoHorticultura",
+      "description": "Cuota de Fomento Hortifrutícula"
+    },
+    {
+      "code": "21",
+      "name": "Timbre",
+      "description": "Impuesto de Timbre"
+    },
+    {
+      "code": "22",
+      "name": "INC Bolsas",
+      "description": "Impuesto Nacional al Consumo de Bolsa Plástica"
+    },
+    {
+      "code": "23",
+      "name": "INCarbono",
+      "description": "Impuesto Nacional del Carbono"
+    },
+    {
+      "code": "24",
+      "name": "INCombustibles",
+      "description": "Impuesto Nacional a los Combustibles"
+    },
+    {
+      "code": "25",
+      "name": "Sobretasa Combustibles",
+      "description": "Sobretasa a los combustibles"
+    },
+    {
+      "code": "26",
+      "name": "Sordicom",
+      "description": "Contribución minoristas (Combustibles)"
+    },
+    {
+      "code": "30",
+      "name": "IC Datos",
+      "description": "Impuesto al Consumo de Datos"
+    },
+    {
+      "code": "ZZ",
+      "name": "Otros tributos, tasas, contribuciones, y similares",
+      "description": "Nombre de la figura tributaria"
+    }
+  ],
+  "AdditionalAccountID": [
+    {
+      "code": "1",
+      "name": "Persona Jurídica y asimiladas"
+    },
+    {
+      "code": "2",
+      "name": "Persona Natural y asimiladas"
+    }
+  ],
+  "TaxLevel": [
+    {
+      "code": "O-13",
+      "name": "Gran contribuyente"
+    },
+    {
+      "code": "O-15",
+      "name": "Autorretenedor"
+    },
+    {
+      "code": "O-23",
+      "name": "Agente de retención IVA"
+    },
+    {
+      "code": "O-47",
+      "name": "Régimen simple de tributación"
+    },
+    {
+      "code": "R-99-PN",
+      "name": "No aplica - Otros"
+    }
+  ],
+  "TaxScheme":[
+    {
+      "code": "01",
+      "name": "IVA",
+      "description": "Impuesto sobre la Ventas"
+    },
+    {
+      "code": "04",
+      "name": "INC",
+      "description": "Impuesto Nacional al Consumo"
+    },
+    {
+      "code": "ZA",
+      "name": "IVA e INC",
+      "description": "Impuesto sobre la Ventas e Impuesto Nacional al Consumo"
+    },
+    {
+      "code": "ZZ",
+      "name": "No aplica",
+      "description": "No aplica"
+    }
+  ],
+  "PaymenMeansID": [
+    {
+      "code": "1",
+      "name": "Contado"
+    },
+    {
+      "code": "2",
+      "name": "Crédito"
+    }
+  ],
+  "PaymentMeansCode": [
+    {
+      "code": "10",
+      "name": "Efectivo"
+    },
+    {
+      "code": "48",
+      "name": "Tarjeta Crédito"
+    },
+    {
+      "code": "49",
+      "name": "Tarjeta Débito"
+    },
+    {
+      "code": "47",
+      "name": "Transferencia Débito Bancaria"
+    },
+    {
+      "code": "42",
+      "name": "Consiganción bancaria"
+    },
+    {
+      "code": "44",
+      "name": "Nota cambiaria"
+    },
+    {
+      "code": "3",
+      "name": "Débito ACH"
+    },
+    {
+      "code": "20",
+      "name": "Cheque"
+    },
+    {
+      "code": "25",
+      "name": "Cheque certificado"
+    },
+    {
+      "code": "23",
+      "name": "Cheque bancario de gerencia"
+    },
+    {
+      "code": "26",
+      "name": "Cheque Local"
+    },
+    {
+      "code": "71",
+      "name": "Bonos"
+    },
+    {
+      "code": "24",
+      "name": "Nota cambiaria esperando aceptación"
+    },
+    {
+      "code": "72",
+      "name": "Vales"
+    },
+    {
+      "code": "64",
+      "name": "Nota promisoria firmada pro el banco"
+    },
+    {
+      "code": "61",
+      "name": "Nota promisoria firmada por el acreedor"
+    },
+    {
+      "code": "65",
+      "name": "Nota promisoria firmada por un banco avalada por otro banco"
+    },
+    {
+      "code": "62",
+      "name": "Nota promisoria firmada por el acreedor, avalada por el banco"
+    },
+    {
+      "code": "66",
+      "name": "Nota promisoria firmada"
+    },
+    {
+      "code": "63",
+      "name": "Nota promisoria firmada por el acreedor, avalada por un tercero"
+    },
+    {
+      "code": "67",
+      "name": "Nota promisoria firmada por un tercero avalada por un banco"
+    },
+    {
+      "code": "60",
+      "name": "Nota promisoria"
+    },
+    {
+      "code": "2",
+      "name": "Crédito ACH"
+    },
+    {
+      "code": "96",
+      "name": "Método de pago solicitado no usuado"
+    },
+    {
+      "code": "ZZZ",
+      "name": "Otro*"
+    },
+    {
+      "code": "91",
+      "name": "Nota bancaria transferible"
+    },
+    {
+      "code": "95",
+      "name": "Giro formato abierto"
+    },
+    {
+      "code": "92",
+      "name": "Cheque local transferible"
+    },
+    {
+      "code": "13",
+      "name": "Crédito Ahorro"
+    },
+    {
+      "code": "93",
+      "name": "Giro referenciado"
+    },
+    {
+      "code": "14",
+      "name": "Débito Ahorro"
+    },
+    {
+      "code": "94",
+      "name": "Giro urgente"
+    },
+    {
+      "code": "39",
+      "name": "Crédito Intercambio Corporativo (CTX)"
+    },
+    {
+      "code": "40",
+      "name": "Débito Intercambio Corporativo (CTX)"
+    },
+    {
+      "code": "4",
+      "name": "Reversión débito de demanda ACH"
+    },
+    {
+      "code": "41",
+      "name": "Desembolso Crédito plus (CCD+)"
+    },
+    {
+      "code": "5",
+      "name": "Reversión crédito de demanda ACH"
+    },
+    {
+      "code": "43",
+      "name": "Desembolso Débito plus (CCD+)"
+    },
+    {
+      "code": "6",
+      "name": "Crédito de demanda ACH"
+    },
+    {
+      "code": "45",
+      "name": "Transferencia Crédito Bancario"
+    },
+    {
+      "code": "7",
+      "name": "Débito de demanda ACH"
+    },
+    {
+      "code": "46",
+      "name": "Transferencia Débito Interbancario"
+    },
+    {
+      "code": "9",
+      "name": "Clearing Nacional o Regional"
+    },
+    {
+      "code": "50",
+      "name": "Postgiro"
+    },
+    {
+      "code": "11",
+      "name": "Reversión Crédito Ahorro"
+    },
+    {
+      "code": "51",
+      "name": "Telex estándar bancario"
+    },
+    {
+      "code": "12",
+      "name": "Reversión Débito Ahorro"
+    },
+    {
+      "code": "52",
+      "name": "Pago comercial urgente"
+    },
+    {
+      "code": "18",
+      "name": "Desembolso (CCD) débito"
+    },
+    {
+      "code": "53",
+      "name": "Pago Tesorería Urgente"
+    },
+    {
+      "code": "19",
+      "name": "Crédito Pago negocio corporativo (CTP)"
+    },
+    {
+      "code": "15",
+      "name": "Bookentry Crédito"
+    },
+    {
+      "code": "21",
+      "name": "Poyecto bancario"
+    },
+    {
+      "code": "16",
+      "name": "Bookentry Débito"
+    },
+    {
+      "code": "22",
+      "name": "Proyecto bancario certificado"
+    },
+    {
+      "code": "17",
+      "name": "Desembolso Crédito (CCD)"
+    },
+    {
+      "code": "27",
+      "name": "Débito Pago Neogcio Corporativo (CTP)"
+    },
+    {
+      "code": "70",
+      "name": "Retiro de nota por el por el acreedor"
+    },
+    {
+      "code": "28",
+      "name": "Crédito Negocio Intercambio Corporativo (CTX)"
+    },
+    {
+      "code": "74",
+      "name": "Retiro de nota por el por el acreedor sobre un banco"
+    },
+    {
+      "code": "29",
+      "name": "Débito Negocio Intercambio Corporativo (CTX)"
+    },
+    {
+      "code": "75",
+      "name": "Retiro de nota por el acreedor, avalada por otro banco"
+    },
+    {
+      "code": "30",
+      "name": "Transferencia Crédito"
+    },
+    {
+      "code": "76",
+      "name": "Retiro de nota por el acreedor, sobre un banco avalada por un tercero"
+    },
+    {
+      "code": "31",
+      "name": "Transferencia Débito"
+    },
+    {
+      "code": "77",
+      "name": "Retiro de una nota por el acreedor sobre un tercero"
+    },
+    {
+      "code": "32",
+      "name": "Desembolso Crédito plus (CCD+)"
+    },
+    {
+      "code": "78",
+      "name": "Retiro de una nota por el acreedor sobre un tercero avalada por un banco"
+    },
+    {
+      "code": "33",
+      "name": "Desembolso Débito plus (CCD+)"
+    },
+    {
+      "code": "1",
+      "name": "Instrumento no definido"
+    },
+    {
+      "code": "34",
+      "name": "Pago y depósito pre acordado (PPD)"
+    },
+    {
+      "code": "37",
+      "name": "Pago Negocio Corporativo Ahorros Crédito (CTP)"
+    },
+    {
+      "code": "35",
+      "name": "Desembolso Crédito (CCD)"
+    },
+    {
+      "code": "38",
+      "name": "Pago Negocio Corporativo Ahorros Débito (CTP)"
+    },
+    {
+      "code": "36",
+      "name": "Desembolso Débito (CCD)"
+    },
+    {
+      "code": "97",
+      "name": "Clearing entre partners"
+    }
+  ]
+
+}
