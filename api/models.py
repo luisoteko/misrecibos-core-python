@@ -1,3 +1,4 @@
+import dataclasses
 import logging
 from typing import List, Optional
 from dataclasses import dataclass
@@ -222,9 +223,7 @@ class PartyTaxScheme:
         _registration_name = str(obj.get("cbc:RegistrationName"))
         _company_id = CompanyID.from_dict(obj.get("cbc:CompanyID"))
         _tax_level_code = TaxLevelCode.from_dict(obj.get("cbc:TaxLevelCode"))
-        _registration_address = Address.from_dict(
-            obj.get("cac:RegistrationAddress")
-        )
+        _registration_address = Address.from_dict(obj.get("cac:RegistrationAddress"))
         _tax_scheme = TaxScheme.from_dict(obj.get("cac:TaxScheme"))
         return PartyTaxScheme(
             _registration_name,
@@ -1465,7 +1464,7 @@ class OrderReference:
 
 
 @dataclass
-class Invoice:
+class Document:
     ext_ubl_extensions: ExtUBLExtensions
     ubl_version_id: str
     customization_id: str
@@ -1486,11 +1485,10 @@ class Invoice:
     payment_means: PaymentMeans
     tax_total: TaxTotal
     legal_monetary_total: LegalMonetaryTotal
-    invoice_line: List[InvoiceLine]
 
     @nullable
     @staticmethod
-    def from_dict(obj: dict | None) -> "Invoice":
+    def from_dict(obj: dict | None) -> "Document":
         print(type(obj))
         _ext_ubl_extensions = ExtUBLExtensions.from_dict(obj.get("ext:UBLExtensions"))
         _ubl_version_id = str(obj.get("cbc:UBLVersionID"))
@@ -1522,13 +1520,7 @@ class Invoice:
         _legal_monetary_total = LegalMonetaryTotal.from_dict(
             obj.get("cac:LegalMonetaryTotal")
         )
-        [print(y) for y in obj.get("cac:InvoiceLine", {})]
-        _invoice_line = (
-            [InvoiceLine.from_dict(y) for y in obj.get("cac:InvoiceLine", {})]
-            if type(obj.get("cac:InvoiceLine")) is list
-            else [InvoiceLine.from_dict(obj.get("cac:InvoiceLine"))]
-        )
-        return Invoice(
+        return Document(
             _ext_ubl_extensions,
             _ubl_version_id,
             _customization_id,
@@ -1549,21 +1541,60 @@ class Invoice:
             _payment_means,
             _tax_total,
             _legal_monetary_total,
-            _invoice_line,
         )
+
+@dataclass
+class Invoice(Document):
+    invoice_line: List[InvoiceLine]
+    
+    def __init__(self, invoice_line, **kwargs):
+        super().__init__(**kwargs)
+        self.invoice_line = invoice_line
+
+    @nullable
+    @staticmethod
+    def from_dict(obj: dict | None) -> "Invoice":
+        _invoice_line = (
+            [InvoiceLine.from_dict(y) for y in obj.get("cac:InvoiceLine", {})]
+            if type(obj.get("cac:InvoiceLine")) is list
+            else [InvoiceLine.from_dict(obj.get("cac:InvoiceLine"))]
+        )
+        return Invoice(invoice_line=_invoice_line, **dataclasses.asdict(Document.from_dict(obj)))
+
+@dataclass
+class CreditNote(Document):
+    credit_note_line: List[InvoiceLine]
+
+    def __init__(self, credit_note_line, **kwargs):
+        super().__init__(**kwargs)
+        self.credit_note_line = credit_note_line
+
+    @nullable
+    @staticmethod
+    def from_dict(obj: dict | None) -> "Invoice":
+        _credit_note_line = (
+            [InvoiceLine.from_dict(y) for y in obj.get("cac:CreditNoteLine", {})]
+            if type(obj.get("cac:CreditNoteLine")) is list
+            else [InvoiceLine.from_dict(obj.get("cac:CreditNoteLine"))]
+        )
+        return CreditNote(credit_note_line=_credit_note_line, **dataclasses.asdict(Document.from_dict(obj)))
 
 
 @dataclass
 class Root:
-    invoice: Invoice
+    invoice: Document
+    document_type: str
 
     @nullable
     @staticmethod
     def from_dict(obj: dict | None) -> "Root":
-        _invoice = Invoice.from_dict(obj.get("Invoice"))
-        return Root(_invoice)
+        _invoice = None
+        _document_type = None
 
-
-# Example Usage
-# jsonstring = json.loads(myjsonstring)
-# root = Root.from_dict(jsonstring)
+        if obj.get("Invoice"):
+            _invoice = Invoice.from_dict(obj.get("Invoice"))
+            _document_type = "Invoice"
+        elif obj.get("CreditNote"):
+            _invoice = CreditNote.from_dict(obj.get("CreditNote"))
+            _document_type = "CreditNote"
+        return Root(_invoice, _document_type)

@@ -23,7 +23,7 @@ def invoice():
     except ValueError as e:
         return {'errorMessage': str(e)}, 406
 
-    invoice: models.Invoice = models.Root.from_dict(ddict).invoice
+    invoice: models.Root = models.Root.from_dict(ddict)
 
     if request.accept_mimetypes.best == "application/json":
         return dataclasses.asdict(invoice)

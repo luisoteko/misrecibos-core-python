@@ -40,7 +40,11 @@ export default function Home() {
       if (!response.ok) {
         throw new Error("Error al subir el archivo: " + response.statusText);
       }
-      const invoice:Invoice = await response.json();
+      const root:Root = await response.json();
+      const invoice:Invoice = root.invoice
+      invoice.document_type = root.document_type;
+      invoice.products = root.document_type === "Invoice" ? invoice.invoice_line : invoice.credit_note_line;
+
       setInvoice(invoice);
       setShowModal(true);
     } catch (e: any){

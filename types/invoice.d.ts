@@ -502,29 +502,33 @@ interface OrderReference {
 }
 
 interface Invoice {
-    ext_ubl_extensions: ExtUBLExtensions;
-    ubl_version_id: string;
-    customization_id: string;
-    profile_id: string;
-    profile_execution_id: string;
-    id: ID;
-    UUID: UUID;
-    issue_date: string;
-    issue_time: string;
-    invoice_type_code: string;
-    note: Array<Note>;
-    document_currency_code: string;
-    delivery: Delivery;
-    line_count_numeric: string;
-    accounting_supplier_party: AccountingSupplierParty;
-    accounting_customer_party: AccountingCustomerParty;
-    order_reference: OrderReference;
-    payment_means: PaymentMeans;
-    tax_total: TaxTotal;
-    legal_monetary_total: LegalMonetaryTotal;
-    invoice_line: Array<InvoiceLine>;
+  ext_ubl_extensions: ExtUBLExtensions;
+  ubl_version_id: string;
+  customization_id: string;
+  profile_id: string;
+  profile_execution_id: string;
+  id: ID;
+  UUID: UUID;
+  issue_date: string;
+  issue_time: string;
+  invoice_type_code: string;
+  note: Array<Note>;
+  document_currency_code: string;
+  delivery: Delivery;
+  line_count_numeric: string;
+  accounting_supplier_party: AccountingSupplierParty;
+  accounting_customer_party: AccountingCustomerParty;
+  order_reference: OrderReference;
+  payment_means: PaymentMeans;
+  tax_total: TaxTotal;
+  legal_monetary_total: LegalMonetaryTotal;
+  invoice_line: Array<InvoiceLine>;
+  credit_note_line: Array<InvoiceLine>;
+  products: Array<InvoiceLine>;
+  document_type: 'Invoice' | 'CreditNote' | null;
 }
 
 interface Root {
     invoice: Invoice;
+    document_type: 'Invoice' | 'CreditNote';
 }

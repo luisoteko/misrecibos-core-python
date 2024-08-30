@@ -47,13 +47,13 @@ def open_file(
             file.find("cac:Attachment") is not None
             and file.find("cac:Attachment").find("cbc:Description") is not None
         ):
-            invoice_xml = file.find("cac:Attachment").find("cbc:Description").text
+            invoice_xml = file.find("cac:Attachment").find("cbc:Description")
         else:
             raise ValueError("Not a valid invoice file")
     except AttributeError:
         raise ValueError("Not a valid invoice")
 
-    return invoice_xml
+    return invoice_xml.text
 
 
 def open_file_storage(

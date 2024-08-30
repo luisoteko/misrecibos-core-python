@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 
 export default function Modal({
   invoice,
-  setShow,
+  setShow
 }: Readonly<{ invoice: Invoice; setShow: (show: boolean) => void }>) {
   const [tab, setTab] = useState<number>(0);
   const ref = useRef<HTMLDivElement>(null);
@@ -111,6 +111,14 @@ export default function Modal({
                   General
                 </h3>
                 <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
+                  <div>
+                    <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-100">
+                      Tipo de documento
+                    </h4>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      {invoice?.document_type}
+                    </p>
+                  </div>
                   <div>
                     <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-100">
                       Numero de factura
@@ -359,7 +367,7 @@ export default function Modal({
                   Productos
                 </h3>
                 <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">
-                  {invoice?.invoice_line?.map((line: InvoiceLine) => (
+                  {invoice?.products?.map((line: InvoiceLine) => (
                     <div
                       key={line.id}
                       className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg"
@@ -385,7 +393,7 @@ export default function Modal({
                         Cantidad
                       </h4>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
-                        {Number(line?.invoiced_quantity?.text)}
+                        {Number(line?.invoiced_quantity?.text) || line?.price?.base_quantity?.text}
                       </p>
                       <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-100">
                         Precio Unitario
@@ -500,7 +508,7 @@ export default function Modal({
                     </h4>
                     <div className="text-sm text-gray-500 dark:text-gray-400 grid">
                       {invoice?.note?.map((note: Note) => (
-                        <p key={note.text}>{note.text}</p>
+                        <p key={note?.text}>{note?.text}</p>
                       ))}
                     </div>
                   </div>
