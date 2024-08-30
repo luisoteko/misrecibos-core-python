@@ -1,7 +1,7 @@
 import dataclasses
 from flask import Flask, render_template, request
 import api.models as models
-import service as service
+import api.service as service
 import xmltodict
 
 app = Flask(__name__)
