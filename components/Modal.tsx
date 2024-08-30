@@ -1,4 +1,3 @@
-import { Invoice } from "@/types/invoice";
 import { useState } from "react";
 
 export default function Modal({
@@ -6,6 +5,8 @@ export default function Modal({
   setShow,
 }: Readonly<{ invoice: Invoice; setShow: (show: boolean) => void }>) {
   const [tab, setTab] = useState<number>(0);
+
+  console.log(invoice);
 
   return (
     // tab navigation. Include a tab for the invoice general data, customer data, seller data, products, totals, and other info
@@ -38,7 +39,7 @@ export default function Modal({
           </button>
         </div>
         <div className="flex flex-col h-full">
-          <div className="flex items-center justify-between px-4 py-2 border-b border-gray-300 dark:border-gray-600">
+          <div className="flex items-center justify-around px-4 py-2 border-b border-gray-300 dark:border-gray-600">
             <button
               className={`text-sm font-semibold ${
                 tab === 0
@@ -161,7 +162,7 @@ export default function Modal({
                       Nombre
                     </h4>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
-                      {invoice.accounting_customer_party.party.party_name}
+                      {invoice.accounting_customer_party.party.party_name.name}
                     </p>
                   </div>
                   <div>
@@ -169,7 +170,7 @@ export default function Modal({
                       Contacto
                     </h4>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
-                      {invoice.accounting_customer_party.party.contact.email}
+                      {invoice.accounting_customer_party.party.contact.electronic_mail}
                     </p>
                   </div>
                   <div>
@@ -190,7 +191,7 @@ export default function Modal({
                     <p className="text-sm text-gray-500 dark:text-gray-400">
                       {
                         invoice.accounting_customer_party.party
-                          .physical_location.line
+                          .physical_location.address.address_line.line
                       }
                     </p>
                   </div>
@@ -201,7 +202,7 @@ export default function Modal({
                     <p className="text-sm text-gray-500 dark:text-gray-400">
                       {
                         invoice.accounting_customer_party.party
-                          .physical_location.city_name
+                          .physical_location.address.city_name
                       }
                     </p>
                   </div>
@@ -212,7 +213,7 @@ export default function Modal({
                     <p className="text-sm text-gray-500 dark:text-gray-400">
                       {
                         invoice.accounting_customer_party.party
-                          .physical_location.country_subentity
+                          .physical_location.address.country_subentity
                       }
                     </p>
                   </div>
@@ -223,7 +224,7 @@ export default function Modal({
                     <p className="text-sm text-gray-500 dark:text-gray-400">
                       {
                         invoice.accounting_customer_party.party
-                          .physical_location.country_name
+                          .physical_location.address.country.name.text
                       }
                     </p>
                   </div>
@@ -234,7 +235,7 @@ export default function Modal({
                     <p className="text-sm text-gray-500 dark:text-gray-400">
                       {
                         invoice.accounting_customer_party.party
-                          .physical_location.postal_zone
+                          .physical_location.address.postal_zone
                       }
                     </p>
                   </div>
@@ -252,7 +253,7 @@ export default function Modal({
                       Nombre
                     </h4>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
-                      {invoice.accounting_supplier_party.party.party_name}
+                      {invoice.accounting_supplier_party.party.party_name.name}
                     </p>
                   </div>
                   <div>
@@ -260,7 +261,7 @@ export default function Modal({
                       Contacto
                     </h4>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
-                      {invoice.accounting_supplier_party.party.contact.email}
+                      {invoice.accounting_supplier_party.party.contact.electronic_mail}
                     </p>
                   </div>
                   <div>
@@ -281,7 +282,7 @@ export default function Modal({
                     <p className="text-sm text-gray-500 dark:text-gray-400">
                       {
                         invoice.accounting_supplier_party.party
-                          .physical_location.line
+                          .physical_location.address.address_line.line
                       }
                     </p>
                   </div>
@@ -292,7 +293,7 @@ export default function Modal({
                     <p className="text-sm text-gray-500 dark:text-gray-400">
                       {
                         invoice.accounting_supplier_party.party
-                          .physical_location.city_name
+                          .physical_location.address.city_name
                       }
                     </p>
                   </div>
@@ -303,7 +304,7 @@ export default function Modal({
                     <p className="text-sm text-gray-500 dark:text-gray-400">
                       {
                         invoice.accounting_supplier_party.party
-                          .physical_location.country_subentity
+                          .physical_location.address.country_subentity
                       }
                     </p>
                   </div>
@@ -314,7 +315,7 @@ export default function Modal({
                     <p className="text-sm text-gray-500 dark:text-gray-400">
                       {
                         invoice.accounting_supplier_party.party
-                          .physical_location.country_name
+                          .physical_location.address.country.name.text
                       }
                     </p>
                   </div>
@@ -325,7 +326,7 @@ export default function Modal({
                     <p className="text-sm text-gray-500 dark:text-gray-400">
                       {
                         invoice.accounting_supplier_party.party
-                          .physical_location.postal_zone
+                          .physical_location.address.postal_zone
                       }
                     </p>
                   </div>
@@ -338,7 +339,7 @@ export default function Modal({
                   Productos
                 </h3>
                 <div className="grid grid-cols-3 gap-4">
-                  {invoice.invoice_lines.map((line) => (
+                  {invoice.invoice_line.map((line:InvoiceLine) => (
                     <div
                       key={line.id}
                       className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg"
@@ -347,37 +348,37 @@ export default function Modal({
                         Producto
                       </h4>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
-                        {line.item_description}
+                        {line.item.description}
                       </p>
                       <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-100">
                         Cantidad
                       </h4>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
-                        {Number(line.invoiced_quantity)}
+                        {Number(line.invoiced_quantity.text)}
                       </p>
                       <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-100">
                         Precio Unitario
                       </h4>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
-                        {Number(line.price_amount)}
+                        {Number(line.price.price_amount.text)}
                       </p>
                       <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-100">
                         Impuestos
                       </h4>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
-                        {Number(line.tax_total)}
+                        {Number(line.tax_total.tax_rounding_amount.text)}
                       </p>
                       <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-100">
                         Descuentos
                       </h4>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
-                        {line.allowance_charge.amount || 0}
+                        {line.allowance_charge?.amount?.text || 0}
                       </p>
                       <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-100">
                         Total
                       </h4>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
-                        {Number(line.line_extension_amount)}
+                        {Number(line.line_extension_amount.text)}
                       </p>
                     </div>
                   ))}
@@ -395,7 +396,7 @@ export default function Modal({
                       Total
                     </h4>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
-                      {invoice.legal_monetary_total.payable_amount}
+                      {invoice.legal_monetary_total.payable_amount.text}
                     </p>
                   </div>
                   <div>
@@ -403,7 +404,7 @@ export default function Modal({
                       Impuestos
                     </h4>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
-                      {invoice.tax_total.tax_amount}
+                      {invoice.tax_total.tax_amount.text}
                     </p>
                   </div>
                 </div>
@@ -423,10 +424,10 @@ export default function Modal({
                       <a
                         href={
                           "https://catalogo-vpfe.dian.gov.co/document/searchqr?documentkey=" +
-                          invoice.uuid
+                          invoice.UUID.text
                         }
                       >
-                        {invoice.uuid}
+                        {invoice.UUID.text}
                       </a>
                     </p>
                   </div>

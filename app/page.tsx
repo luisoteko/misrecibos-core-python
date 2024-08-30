@@ -5,7 +5,6 @@
 import DropFile from "@/components/DropFile";
 import { useState } from "react";
 import { postFile } from "@/services/net";
-import { Invoice } from "@/types/invoice";
 import Modal from "@/components/Modal";
 
 // Style it using tailwindcss
@@ -30,6 +29,7 @@ export default function Home() {
     if (!file) return;
     setLoading(true);
     const invoice = await postFile(file);
+    console.log(invoice);
     setLoading(false);
     setInvoice(invoice);
     setShowModal(true);

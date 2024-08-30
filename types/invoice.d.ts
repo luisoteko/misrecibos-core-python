@@ -1,146 +1,530 @@
-export interface Invoice {
-  accounting_customer_party: AccountingErParty;
-  accounting_supplier_party: AccountingErParty;
-  allowance_charge: any[];
-  customization_id: string;
-  document_currency_code: string;
-  id: string;
-  invoice_lines: InvoiceLine[];
-  invoice_type_code: string;
-  issue_date: Date;
-  issue_time: string;
-  legal_monetary_total: LegalMonetaryTotal;
-  line_count_numeric: string;
-  profile_execution_id: string;
-  profile_id: string;
-  tax_total: TaxTotal;
-  ubl_extensions: UblExtension[];
-  ubl_version_id: string;
-  uuid: string;
+// Generated using py-ts-interfaces.
+// See https://github.com/cs-cordero/py-ts-interfaces
+
+interface ID {
+    scheme_id: string | null;
+    scheme_name: string | null;
+    text: string;
 }
 
-export interface AccountingErParty {
-  additional_account_id: string;
-  party: Party;
+interface PartyIdentification {
+    id: UNKNOWN;
 }
 
-export interface Party {
-  contact: Contact;
-  party_legal_entity: PartyLegalEntity;
-  party_name: string;
-  party_tax_scheme: PartyTaxScheme;
-  physical_location: PhysicalLocation;
+interface CompanyID {
+    scheme_id: string | null;
+    scheme_name: string | null;
+    scheme_agency_id: string | null;
+    scheme_agency_name: string | null;
+    text: string;
 }
 
-export interface Contact {
-  email: string;
-  telephone: string;
+interface CorporateRegistrationScheme {
+    id: string;
+    name: string;
 }
 
-export interface PartyLegalEntity {
-  company_id: string;
-  corporate_registration_id: string;
-  registration_name: string;
+interface PartyLegalEntity {
+    registration_name: string;
+    company_id: CompanyID;
+    corporate_registration_scheme: CorporateRegistrationScheme;
 }
 
-export interface PartyTaxScheme {
-  address: PhysicalLocation;
-  company_id: string;
-  registration_name: string;
-  tax_level_code: string;
-  tax_scheme_id: string;
-  tax_scheme_name: string;
+interface PartyName {
+    name: string;
 }
 
-export interface PhysicalLocation {
-  city_name: string;
-  country_code: string;
-  country_name: string;
-  country_subentity: string;
-  country_subentity_code: string;
-  id: string;
-  line: string;
-  postal_zone: string;
+interface TaxScheme {
+    id: string;
+    name: string;
 }
 
-export interface InvoiceLine {
-  allowance_charge: AllowanceCharge;
-  base_quantity: string;
-  id: number;
-  invoiced_quantity: string;
-  item_description: string;
-  item_id: string;
-  line_extension_amount: string;
-  notes: string[];
-  price_amount: string;
-  tax_total: string;
+interface TaxLevelCode {
+    list_name: string | null;
+    text: string;
 }
 
-export interface AllowanceCharge {
-  allowance_charge_reason: string;
-  amount: string;
-  base_amount: string;
-  charge_indicator: string;
-  multiplier_factor_numeric: string;
+interface Name {
+    language_id: string | null;
+    text: string;
 }
 
-export interface LegalMonetaryTotal {
-  allowance_total_amount: string;
-  charge_total_amount: string;
-  line_extension_amount: string;
-  payable_amount: string;
-  payable_rounding_amount: string;
-  tax_exclusive_amount: string;
-  tax_inclusive_amount: string;
+interface Country {
+    identification_code: string;
+    name: Name;
 }
 
-export interface TaxTotal {
-  tax_amount: string;
-  tax_name: string;
-  tax_percentage: string;
-  taxable_amount: string;
+interface AddressLine {
+    line: string;
 }
 
-export interface UblExtension {
-  dian_extensions: DianExtensions | null;
-  signature: null | string;
+interface Address {
+    id: string;
+    city_name: string;
+    postal_zone: string;
+    country_subentity: string;
+    country_subentity_code: string;
+    address_line: AddressLine;
+    country: Country;
 }
 
-export interface DianExtensions {
-  authorization_provider: AuthorizationProvider;
-  invoice_control: InvoiceControl;
-  invoice_source: InvoiceSource;
-  qr_code: string;
-  software_provider: SoftwareProvider;
-  software_security_code: string;
+interface RegistrationAddress {
+    id: string;
+    city_name: string;
+    postal_zone: string;
+    country_subentity: string;
+    country_subentity_code: string;
+    address_line: AddressLine;
+    country: Country;
 }
 
-export interface AuthorizationProvider {
-  authorization_provider_id: string;
+interface PartyTaxScheme {
+    registration_name: string;
+    company_id: CompanyID;
+    tax_level_code: TaxLevelCode;
+    registration_address: RegistrationAddress;
+    tax_scheme: TaxScheme;
 }
 
-export interface InvoiceControl {
-  authorization_period: AuthorizationPeriod;
-  authorized_invoices: AuthorizedInvoices;
-  invoice_authorization: string;
+interface PhysicalLocation {
+    name: string;
+    address: Address;
 }
 
-export interface AuthorizationPeriod {
-  end_date: Date;
-  start_date: Date;
+interface Contact {
+    telephone: string;
+    electronic_mail: string;
+    name: string;
 }
 
-export interface AuthorizedInvoices {
-  from_invoice: number;
-  prefix: string;
-  to_invoice: number;
+interface Person {
+    first_name: string;
+    family_name: string;
 }
 
-export interface InvoiceSource {
-  identification_code: string;
+interface Party {
+    party_name: PartyName;
+    person: Person;
+    physical_location: PhysicalLocation;
+    party_tax_scheme: PartyTaxScheme;
+    party_legal_entity: PartyLegalEntity;
+    contact: Contact;
+    party_identification: PartyIdentification;
+    industry_classification_code: string;
 }
 
-export interface SoftwareProvider {
-  provider_id: string;
-  software_id: string;
+interface AccountingCustomerParty {
+    additional_account_id: string;
+    party: Party;
+}
+
+interface AccountingSupplierParty {
+    additional_account_id: string;
+    party: Party;
+}
+
+interface Amount {
+    currency_id: string | null;
+    text: string;
+}
+
+interface BaseAmount {
+    currency_id: string | null;
+    text: string;
+}
+
+interface AllowanceCharge {
+    id: string;
+    charge_indicator: string;
+    multiplier_factor_numeric: string;
+    amount: Amount;
+    base_amount: BaseAmount;
+}
+
+interface Note {
+    text: string;
+}
+
+interface InvoicedQuantity {
+    unit_code: string | null;
+    text: string;
+}
+
+interface LineExtensionAmount {
+    currency_id: string | null;
+    text: string;
+}
+
+interface TaxAmount {
+    currency_id: string | null;
+    text: string;
+}
+
+interface TaxCategory {
+    percent: string;
+    tax_scheme: TaxScheme;
+}
+
+interface TaxableAmount {
+    currency_id: string | null;
+    text: string;
+}
+
+interface TaxSubtotal {
+    taxable_amount: TaxableAmount;
+    tax_amount: TaxAmount;
+    tax_category: TaxCategory;
+}
+
+interface TaxTotal {
+    tax_amount: TaxAmount;
+    tax_subtotal: TaxSubtotal;
+    tax_rounding_amount: TaxAmount;
+}
+
+interface StandardItemIdentification {
+    id: ID;
+}
+
+interface Item {
+    description: string;
+    standard_item_identification: StandardItemIdentification;
+    sellers_item_identification: StandardItemIdentification;
+    brand_name: string;
+    pack_size_numeric: string;
+}
+
+interface PriceAmount {
+    currency_id: string | null;
+    text: string;
+}
+
+interface BaseQuantity {
+    unit_code: string | null;
+    text: string;
+}
+
+interface Price {
+    price_amount: PriceAmount;
+    base_quantity: BaseQuantity;
+}
+
+interface InvoiceLine {
+    id: string;
+    note: Array<Note>;
+    invoiced_quantity: InvoicedQuantity;
+    line_extension_amount: LineExtensionAmount;
+    allowance_charge: AllowanceCharge;
+    tax_total: TaxTotal;
+    item: Item;
+    price: Price;
+}
+
+interface PaymentMeans {
+    id: string;
+    payment_means_code: string;
+    payment_due_date: string;
+    payment_id: string;
+}
+
+interface AllowanceTotalAmount {
+    currency_id: string | null;
+    text: string;
+}
+
+interface ChargeTotalAmount {
+    currency_id: string | null;
+    text: string;
+}
+
+interface IdentificationCode {
+    list_agency_id: string | null;
+    list_agency_name: string | null;
+    list_scheme_uri: string | null;
+    text: string;
+}
+
+interface PayableAmount {
+    currency_id: string | null;
+    text: string;
+}
+
+interface PayableRoundingAmount {
+    currency_id: string | null;
+    text: string;
+}
+
+interface TaxExclusiveAmount {
+    currency_id: string | null;
+    text: string;
+}
+
+interface TaxInclusiveAmount {
+    currency_id: string | null;
+    text: string;
+}
+
+interface UUID {
+    scheme_id: string | null;
+    scheme_name: string | null;
+    text: string;
+}
+
+interface LegalMonetaryTotal {
+    line_extension_amount: LineExtensionAmount;
+    tax_exclusive_amount: TaxExclusiveAmount;
+    tax_inclusive_amount: TaxInclusiveAmount;
+    allowance_total_amount: AllowanceTotalAmount;
+    charge_total_amount: ChargeTotalAmount;
+    payable_rounding_amount: PayableRoundingAmount;
+    payable_amount: PayableAmount;
+}
+
+interface DsCanonicalizationMethod {
+    algorithm: string;
+}
+
+interface DsDigestMethod {
+    algorithm: string;
+}
+
+interface DsRSAKeyValue {
+    modulus: string;
+    exponent: string;
+}
+
+interface DsKeyValue {
+    rsa_key_value: DsRSAKeyValue;
+}
+
+interface DsX509Data {
+    x509_certificate: string;
+}
+
+interface DsKeyInfo {
+    id: string;
+    x509_data: DsX509Data;
+    key_value: DsKeyValue;
+}
+
+interface XadesSigPolicyId {
+    xades_identifier: string;
+    xades_description: string;
+}
+
+interface XadesSigPolicyHash {
+    digest_method: DsDigestMethod;
+    digest_value: string;
+}
+
+interface XadesSignaturePolicyId {
+    xades_sig_policy_id: XadesSigPolicyId;
+    xades_sig_policy_hash: XadesSigPolicyHash;
+}
+
+interface XadesSignaturePolicyIdentifier {
+    xades_signature_policy_id: XadesSignaturePolicyId;
+}
+
+interface XadesClaimedRoles {
+    xades_claimed_role: string;
+}
+
+interface XadesSignerRole {
+    xades_claimed_roles: XadesClaimedRoles;
+}
+
+interface XadesCertDigest {
+    digest_method: DsDigestMethod;
+    digest_value: string;
+}
+
+interface XadesIssuerSerial {
+    x509_issuer_name: string;
+    x509_serial_number: string;
+}
+
+interface XadesCert {
+    xades_cert_digest: XadesCertDigest;
+    xades_issuer_serial: XadesIssuerSerial;
+}
+
+interface XadesSigningCertificate {
+    xades_cert: XadesCert;
+}
+
+interface XadesSignedSignatureProperties {
+    xades_signing_time: string;
+    xades_signing_certificate: XadesSigningCertificate;
+    xades_signature_policy_identifier: XadesSignaturePolicyIdentifier;
+    xades_signer_role: XadesSignerRole;
+}
+
+interface XadesSignedProperties {
+    id: string;
+    xades_signed_signature_properties: XadesSignedSignatureProperties;
+}
+
+interface XadesQualifyingProperties {
+    xmlnsxades: string;
+    target: string;
+    id: string;
+    xades_signed_properties: XadesSignedProperties;
+}
+
+interface DsObject {
+    xades_qualifying_properties: XadesQualifyingProperties;
+}
+
+interface DsTransform {
+    algorithm: string;
+}
+
+interface DsTransforms {
+    transform: DsTransform;
+}
+
+interface DsReference {
+    id: string;
+    URI: string;
+    transforms: DsTransforms;
+    digest_method: DsDigestMethod;
+    digest_value: string;
+}
+
+interface DsSignatureMethod {
+    algorithm: string;
+}
+
+interface DsSignedInfo {
+    canonicalization_method: DsCanonicalizationMethod;
+    signature_method: DsSignatureMethod;
+    reference: Array<DsReference>;
+}
+
+interface DsSignature {
+    xmlnsds: string;
+    id: string;
+    signed_info: DsSignedInfo;
+    signature_value: string;
+    key_info: DsKeyInfo;
+    object: DsObject;
+}
+
+interface StsAuthorizationPeriod {
+    start_date: string;
+    end_date: string;
+}
+
+interface StsAuthorizationProviderID {
+    scheme_agency_id: string | null;
+    scheme_agency_name: string | null;
+    scheme_id: string | null;
+    scheme_name: string | null;
+    text: string;
+}
+
+interface StsAuthorizationProvider {
+    authorization_provider_id: StsAuthorizationProviderID;
+}
+
+interface StsAuthorizedInvoices {
+    prefix: string;
+    stsfrom: string;
+    to: string;
+}
+
+interface StsInvoiceControl {
+    invoice_authorization: string;
+    authorization_period: StsAuthorizationPeriod;
+    authorized_invoices: StsAuthorizedInvoices;
+}
+
+interface StsInvoiceSource {
+    identification_code: IdentificationCode;
+}
+
+interface StsProviderID {
+    scheme_agency_id: string | null;
+    scheme_agency_name: string | null;
+    scheme_id: string | null;
+    scheme_name: string | null;
+    text: string;
+}
+
+interface StsSoftwareID {
+    scheme_agency_id: string | null;
+    scheme_agency_name: string | null;
+    text: string;
+}
+
+interface StsSoftwareProvider {
+    provider_id: StsProviderID;
+    software_id: StsSoftwareID;
+}
+
+interface StsSoftwareSecurityCode {
+    scheme_agency_id: string | null;
+    scheme_agency_name: string | null;
+    text: string;
+}
+
+interface StsDianExtensions {
+    invoice_control: StsInvoiceControl;
+    invoice_source: StsInvoiceSource;
+    software_provider: StsSoftwareProvider;
+    software_security_code: StsSoftwareSecurityCode;
+    authorization_provider: StsAuthorizationProvider;
+    qr_code: string;
+}
+
+interface ExtExtensionContent {
+    dian_extensions: StsDianExtensions;
+    signature: DsSignature;
+}
+
+interface ExtUBLExtension {
+    ext_extension_content: ExtExtensionContent;
+}
+
+interface ExtUBLExtensions {
+    ext_ubl_extension: Array<ExtUBLExtension>;
+}
+
+interface Delivery {
+    actual_delivery_date: string;
+    actual_delivery_time: string;
+}
+
+interface OrderReference {
+    id: string;
+    issue_date: string;
+}
+
+interface Invoice {
+    ext_ubl_extensions: ExtUBLExtensions;
+    ubl_version_id: string;
+    customization_id: string;
+    profile_id: string;
+    profile_execution_id: string;
+    id: string;
+    UUID: UUID;
+    issue_date: string;
+    issue_time: string;
+    invoice_type_code: string;
+    note: Array<Note>;
+    document_currency_code: string;
+    delivery: Delivery;
+    line_count_numeric: string;
+    accounting_supplier_party: AccountingSupplierParty;
+    accounting_customer_party: AccountingCustomerParty;
+    order_reference: OrderReference;
+    payment_means: PaymentMeans;
+    tax_total: TaxTotal;
+    legal_monetary_total: LegalMonetaryTotal;
+    invoice_line: Array<InvoiceLine>;
+}
+
+interface Root {
+    invoice: Invoice;
 }

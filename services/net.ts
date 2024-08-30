@@ -1,4 +1,4 @@
-export async function postFile (file: File) {
+export async function postFile (file: File): Promise<Invoice> {
   const formData = new FormData();
   formData.append("file", file);
   

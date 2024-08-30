@@ -2,6 +2,7 @@ import dataclasses
 from flask import Flask, render_template, request
 import models
 import service as service
+import xmltodict
 
 app = Flask(__name__)
 
@@ -17,7 +18,9 @@ def invoice():
     file = request.files["file"]
     # Parse the file
 
-    invoice: models.Invoice = service.parse_invoice(service.open_file_storage(file))
+    ddict = xmltodict.parse(service.open_file_storage(file))
+
+    invoice: models.Invoice = models.Root.from_dict(ddict).invoice
 
     if request.accept_mimetypes.best == "application/json":
         return dataclasses.asdict(invoice)
