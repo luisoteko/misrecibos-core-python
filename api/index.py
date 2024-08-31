@@ -8,7 +8,7 @@ import xmltodict
 app = Flask(__name__)
 
 
-@app.route("/api/")
+@app.route("/api/index")
 def hello_world():
     return render_template("index.html")
 
