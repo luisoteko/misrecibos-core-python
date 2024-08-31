@@ -28,4 +28,4 @@ def invoice():
     if request.accept_mimetypes.best == "application/json":
         return dataclasses.asdict(invoice)
 
-    return render_template("invoice.html", invoice=invoice)
+    return render_template("invoice.html", invoice=invoice.invoice)
