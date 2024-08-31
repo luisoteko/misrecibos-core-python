@@ -6,15 +6,7 @@
   </head>
 
   <body>
-    <h1>Sube tu factura</h1>
-    <form
-      method="POST"
-      enctype="multipart/form-data"
-      action="{{ url_for('invoice') }}"
-    >
-      <input type="file" name="file" />
-      <input type="submit" value="Subir" />
-    </form>
+    <h1>Factura {{invoice.id.text}} {{invoice.accounting_supplier_party.party.party_name.name}}</h1>
     {% include 'invoice/general.html' %}
     {% include 'invoice/buyer.html' %}
     {% include 'invoice/seller.html' %}

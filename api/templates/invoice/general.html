@@ -1,7 +1,7 @@
 <section>
   <h2>Datos generales</h2>
   <p>Fecha: {{ invoice.issue_date }} {{ invoice.issue_time }}</p>
-  <p>Factura: {{ invoice.id }}</p>
-  <p>CUFE: <a href="https://catalogo-vpfe.dian.gov.co/document/searchqr?documentkey={{ invoice.uuid }}"> {{invoice.uuid}} </a></p>
+  <p>Factura: {{ invoice.id.text }}</p>
+  <p>CUFE: <a href="https://catalogo-vpfe.dian.gov.co/document/searchqr?documentkey={{ invoice.UUID.text }}"> {{invoice.UUID.text}} </a></p>
   <p>Moneda: {{ invoice.document_currency_code }}</p>
 </section>

@@ -3,6 +3,8 @@
   <table>
     <thead>
       <tr>
+        <th>Codigo Estandar</th>
+        <th>Codigo Tienda</th>
         <th>Nombre</th>
         <th>Cantidad</th>
         <th>Precio Unitario</th>
@@ -12,14 +14,16 @@
       </tr>
     </thead>
     <tbody>
-      {% for line in invoice.invoice_lines %}
+      {% for line in invoice.invoice_line %}
       <tr>
-        <td>{{ line.item_description }}</td>
+        <td>{{ line.item.standard_item_identification.id.text }}</td>
+        <td>{{ line.item.sellers_item_identification.id.text }}</td>
+        <td>{{ line.item.description }}</td>
         <td>{{ line.invoiced_quantity|float|round }}</td>
-        <td>{{ "${:,.2f}".format(line.price_amount|float) }}</td>
-        <td>{{ "${:,.2f}".format(line.allowance_charge.amount|float) }}</td>
-        <td>{{ "${:,.2f}".format(line.tax_total|float) }}</td>
-        <td>{{ "${:,.2f}".format(line.line_extension_amount|float) }}</td>
+        <td>{{ "${:,.2f}".format(line.price.price_amount.text|float) }}</td>
+        <td>{{ "${:,.2f}".format(line.allowance_charge.amount.text|float) }}</td>
+        <td>{{ "${:,.2f}".format(line.tax_total.tax_rounding_amount.text|float) }}</td>
+        <td>{{ "${:,.2f}".format(line.line_extension_amount.text|float) }}</td>
       </tr>
       {% endfor %}
     </tbody>

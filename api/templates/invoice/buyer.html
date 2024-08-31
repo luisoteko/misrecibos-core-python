@@ -1,12 +1,15 @@
 <section>
   <h2>Datos Comprador</h2>
-  <p>Nombre: {{ invoice.accounting_customer_party.party.party_name }}</p>
-  <p>Identificacion: {{ invoice.accounting_customer_party.party.party_tax_scheme.company_id }}</p>
-  <p>Direccion: {{ invoice.accounting_customer_party.party.physical_location.line}}</p>
-  <p>Pais: {{ invoice.accounting_customer_party.party.physical_location.country_name }}</p>
-  <p>Departamento: {{ invoice.accounting_customer_party.party.physical_location.country_subentity }}</p>
-  <p>Ciudad: {{ invoice.accounting_customer_party.party.physical_location.city_name }}</p>
-  <p>Codigo postal: {{invoice.accounting_customer_party.party.physical_location.postal_zone}}</p>
+  <p>Nombre: {{ invoice.accounting_customer_party.party.party_name.name }}</p>
+  <p>Identificacion: {{ invoice.accounting_customer_party.party.party_tax_scheme.company_id.text }}</p>
+  <p>Direccion: {% for line in invoice.accounting_customer_party.party.physical_location.address.address_line %}
+    {{ line.line }}
+    {% endfor %}
+  </p>
+  <p>Pais: {{ invoice.accounting_customer_party.party.physical_location.address.country.name.text }}</p>
+  <p>Departamento: {{ invoice.accounting_customer_party.party.physical_location.address.country_subentity }}</p>
+  <p>Ciudad: {{ invoice.accounting_customer_party.party.physical_location.address.city_name }}</p>
+  <p>Codigo postal: {{invoice.accounting_customer_party.party.physical_location.address.postal_zone}}</p>
   <p>Telefono: {{ invoice.accounting_customer_party.party.contact.telephone }}</p>
-  <p>Correo: {{ invoice.accounting_customer_party.party.contact.email }}</p>
+  <p>Correo: {{ invoice.accounting_customer_party.party.contact.electronic_mail }}</p>
 </section>

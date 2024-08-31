@@ -1543,10 +1543,11 @@ class Document:
             _legal_monetary_total,
         )
 
+
 @dataclass
 class Invoice(Document):
     invoice_line: List[InvoiceLine]
-    
+
     def __init__(self, invoice_line, **kwargs):
         super().__init__(**kwargs)
         self.invoice_line = invoice_line
