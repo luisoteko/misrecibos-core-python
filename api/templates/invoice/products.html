@@ -16,12 +16,18 @@
     <tbody>
       {% for line in invoice.invoice_line %}
       <tr>
-        <td>{{ line.item.standard_item_identification.id.text }}</td>
-        <td>{{ line.item.sellers_item_identification.id.text }}</td>
-        <td>{{ line.item.description }}</td>
-        <td>{{ line.invoiced_quantity|float|round }}</td>
+        {% if line.item.standard_item_identification %}
+        <td>{{ line.item.standard_item_identification.id.text or '' }}</td>
+        {% endif %}
+        {% if line.item.sellers_item_identification %}
+        <td>{{ line.item.sellers_item_identification.id.text or '' }}</td>
+        {% endif %}
+        <td>{{ line.item.description or '' }}</td>
+        <td>{{ line.invoiced_quantity or '0'|float|round }}</td>
         <td>{{ "${:,.2f}".format(line.price.price_amount.text|float) }}</td>
+        {% if line.allowance_charge %}
         <td>{{ "${:,.2f}".format(line.allowance_charge.amount.text|float) }}</td>
+        {% endif %}
         <td>{{ "${:,.2f}".format(line.tax_total.tax_rounding_amount.text|float) }}</td>
         <td>{{ "${:,.2f}".format(line.line_extension_amount.text|float) }}</td>
       </tr>
