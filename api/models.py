@@ -1,5 +1,4 @@
 import dataclasses
-import logging
 from typing import List, Optional
 from dataclasses import dataclass
 
@@ -632,7 +631,7 @@ class InvoiceLine:
 
 @dataclass
 class PaymentMeans:
-    id: str
+    id: ID
     payment_means_code: str
     payment_due_date: str
     payment_id: str
@@ -640,7 +639,7 @@ class PaymentMeans:
     @nullable
     @staticmethod
     def from_dict(obj: dict | None) -> "PaymentMeans":
-        _id = str(obj.get("cbc:ID"))
+        _id = ID.from_dict(obj.get("cbc:ID"))
         _payment_means_code = str(obj.get("cbc:PaymentMeansCode"))
         _payment_due_date = str(obj.get("cbc:PaymentDueDate"))
         _payment_id = str(obj.get("cbc:PaymentID"))
@@ -1560,7 +1559,10 @@ class Invoice(Document):
             if type(obj.get("cac:InvoiceLine")) is list
             else [InvoiceLine.from_dict(obj.get("cac:InvoiceLine"))]
         )
-        return Invoice(invoice_line=_invoice_line, **dataclasses.asdict(Document.from_dict(obj)))
+        return Invoice(
+            invoice_line=_invoice_line, **dataclasses.asdict(Document.from_dict(obj))
+        )
+
 
 @dataclass
 class CreditNote(Document):
@@ -1578,7 +1580,10 @@ class CreditNote(Document):
             if type(obj.get("cac:CreditNoteLine")) is list
             else [InvoiceLine.from_dict(obj.get("cac:CreditNoteLine"))]
         )
-        return CreditNote(credit_note_line=_credit_note_line, **dataclasses.asdict(Document.from_dict(obj)))
+        return CreditNote(
+            credit_note_line=_credit_note_line,
+            **dataclasses.asdict(Document.from_dict(obj))
+        )
 
 
 @dataclass

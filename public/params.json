@@ -186,7 +186,7 @@
       "description": "No aplica"
     }
   ],
-  "PaymenMeansID": [
+  "PaymentMeansID": [
     {
       "code": "1",
       "name": "Contado"
